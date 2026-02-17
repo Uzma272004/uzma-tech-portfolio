@@ -1,1165 +1,582 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Uzma Mulla | AI & Data Science Portfolio</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-   
-
+    
     <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-   
-
+    
     :root {
-
         --bg: #030712;
-
         --accent: #ffb703;
-
         --accent-glow: rgba(255, 183, 3, 0.3);
-
         --glass: rgba(15, 23, 42, 0.7);
-
         --glass-border: rgba(255, 255, 255, 0.08);
-
     }
 
-
-
     * { margin: 0; padding: 0; box-sizing: border-box; color: white; scroll-behavior: smooth; }
-
     html { scroll-padding-top: 100px; }
-
     body { background-color: var(--bg); overflow-x: hidden; font-family: 'Space Grotesk', sans-serif; position: relative; }
-
-
 
     #neural-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
-
-
     nav .cyber-glass { background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(15px); }
-
     .nav-link { transition: 0.3s; position: relative; }
-
     .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: 0.3s; }
-
     .nav-link:hover::after { width: 100%; }
 
-
-
     #hero {
-
-    padding-top: 140px;
-
+    padding-top: 140px; 
     padding-bottom: 20px; /* Reduced from 60px */
-
     min-height: 80vh;      /* Reduced from 100vh to bring content up */
-
     display: flex;
-
     align-items: center;
-
 }
-
-
 
     .hero-title {
-
         font-weight: 800;
-
         background: linear-gradient(to right, #ffffff, var(--accent), #818cf8);
-
         -webkit-background-clip: text;
-
         -webkit-text-fill-color: transparent;
-
         background-size: 200% auto;
-
         animation: shine 5s linear infinite;
-
     }
-
     @keyframes shine { to { background-position: 200% center; } }
 
-
-
     .hero-description { letter-spacing: 0.02em; border-left: 2px solid var(--accent); padding-left: 1.5rem; position: relative; }
-
     .hero-description span { text-shadow: 0 0 10px var(--accent-glow); }
-
     .mono { font-family: 'JetBrains Mono', monospace; }
 
-
-
     /* New Section Headings */
-
     h2.mono {
-
     font-size: 1.25rem;
-
     font-weight: 700;
-
     letter-spacing: 0.8em;
-
     margin-top: 2rem;    /* Reduced from 4rem */
-
     margin-bottom: 2.5rem; /* Reduced from 4rem/5rem */
-
     text-shadow: 0 0 15px rgba(255, 183, 3, 0.2);
-
     text-align: center;
-
     text-transform: uppercase;
-
     color: var(--accent);
-
 }
 
-
-
     .cyber-glass {
-
         background: var(--glass);
-
         backdrop-filter: blur(25px);
-
         border: 1px solid var(--glass-border);
-
         border-radius: 24px;
-
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-
     }
-
     .cyber-glass:hover {
-
         background: rgba(30, 41, 59, 0.8);
-
         border-color: var(--accent);
-
         transform: translateY(-12px) scale(1.02);
-
         box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-glow);
-
     }
-
-
 
     .profile-frame { position: relative; padding: 10px; background: linear-gradient(135deg, var(--accent), #6366f1); border-radius: 40px; box-shadow: 0 0 40px var(--accent-glow); }
-
     .profile-frame img { width: 100%; max-width: 340px; border-radius: 30px; transition: 0.6s ease; }
-
-
 
     .tag-badge { background: rgba(255, 183, 3, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
 
-
-
     #skills .grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 2rem; }
-
     @media (min-width: 768px) { #skills .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-
-
     #skills .cyber-glass {
-
         min-height: 280px;
-
         display: flex;
-
         flex-direction: column;
-
         justify-content: center;
-
         align-items: center;
-
         padding: 2rem;
-
     }
-
-
 
     @keyframes soft-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-
     .animate-pulse { animation: soft-pulse 2s infinite; }
-
     [data-lucide] { stroke-width: 2.5px; }
 
-
-
     @media (max-width: 768px) {
-
         .hero-title { font-size: 3.5rem; }
-
         #hero { padding-top: 120px; }
-
         .cyber-glass { padding: 1.5rem !important; }
-
         h2.mono {
-
             font-size: 0.875rem;
-
             letter-spacing: 0.5em;
-
             margin-bottom: 3rem;
-
         }
-
     }
 
-
-
     /* Update the brain-circuit icon opacity */
-
 [data-lucide="brain-circuit"] {
-
     opacity: 0.05 !important; /* Make it very faint like a watermark */
-
     pointer-events: none;
-
 }
-
-
 
 /* Ensure the sidebar list is readable */
-
 .primary-focus-box {
-
     background: rgba(255, 255, 255, 0.03);
-
     border: 1px solid rgba(255, 255, 255, 0.05);
-
     z-index: 2;
-
     position: relative;
-
 }
-
 </style>
-
 </head>
-
 <body>
-
     <div id="neural-bg"></div>
 
-
-
     <nav class="fixed top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50">
-
         <div class="cyber-glass px-8 py-5 flex justify-between items-center bg-slate-950/50">
-
            <span class="text-2xl font-black italic tracking-tighter">
-
     <span class="text-white">UZMA</span><span class="text-[#ffb703]">.</span><span class="text-slate-500 font-light">MULLA</span>
-
 </span>
-
             <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.3em]">
-
                 <a href="#hero" class="nav-link hover:text-yellow-400">Identity</a>
-
                 <a href="#experience" class="nav-link hover:text-yellow-400">Experience</a>
-
                 <a href="#skills" class="nav-link hover:text-yellow-400">Matrix</a>
-
                 <a href="#projects" class="nav-link hover:text-yellow-400">Works</a>
-
                 <a href="#contact" class="text-yellow-400 font-black">Connect</a>
-
             </div>
-
         </div>
-
     </nav>
 
-
-
     <section id="hero" class="min-h-screen flex items-center">
-
         <div class="container mx-auto grid lg:grid-cols-2 gap-10 items-center px-10">
-
             <div data-aos="fade-right">
-
                 <span class="tag-badge mb-8 inline-block">Future AI Engineer & Data Science Enthusiast</span>
-
                 <h1 class="text-6xl lg:text-8xl hero-title mb-10 tracking-tight leading-none">Creative <br>Intelligence</h1>
-
-               
-
+                
                 <p class="hero-description text-slate-400 text-lg lg:text-xl mb-8 leading-relaxed max-w-2xl font-light">
-
-                    AI & Data Science student passionate about Artificial Intelligence, machine learning and the foundations of
-
-                    <span class="text-white font-medium">data-driven technologies</span>. Interested in exploring how
-
-                    structured data, analysis, and algorithms contribute to building
-
+                    AI & Data Science student passionate about Artificial Intelligence, machine learning and the foundations of 
+                    <span class="text-white font-medium">data-driven technologies</span>. Interested in exploring how 
+                    structured data, analysis, and algorithms contribute to building 
                     <span class="text-[#ffb703]">reliable and meaningful solutions</span>.
-
                 </p>
 
-
-
                 <div class="space-y-4 mb-12">
-
                     <div class="flex items-center gap-3 group">
-
                         <div class="p-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-
                             <i data-lucide="briefcase" class="w-4 h-4 text-[#ffb703]"></i>
-
                         </div>
-
                         <span class="mono text-sm text-slate-300">Currently <span class="text-white">AI Engineering Intern</span> at Wizzybox</span>
-
                     </div>
 
-
-
                     <div class="flex items-center gap-3 group">
-
                         <div class="p-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-
                             <i data-lucide="cpu" class="w-4 h-4 text-[#ffb703]"></i>
-
                         </div>
-
                         <span class="mono text-sm text-slate-300">Built <span class="text-white">Deep Learning & Data Processing</span> academic projects</span>
-
                     </div>
-
-
 
                     <div class="flex items-center gap-3 group">
-
                         <div class="p-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-
                             <i data-lucide="search" class="w-4 h-4 text-[#ffb703]"></i>
-
                         </div>
-
                         <span class="mono text-sm text-yellow-500 animate-pulse">Actively seeking AI / Data Scienece Job opportunities</span>
-
                     </div>
-
                 </div>
-
-
 
                 <div class="flex flex-wrap gap-8">
-
                     <a href="#projects" class="px-12 py-5 bg-yellow-500 text-black rounded-2xl font-bold hover:bg-white transition-all shadow-xl shadow-yellow-500/20 uppercase tracking-widest text-xs">Explore My Works</a>
-
                     <a href="https://github.com/Uzma272004" target="_blank" class="px-6 py-5 cyber-glass rounded-2xl flex items-center"><i data-lucide="github"></i></a>
-
                 </div>
-
             </div>
-
-
 
             <div class="flex justify-center lg:justify-end" data-aos="zoom-out" data-aos-duration="1500">
-
                 <div class="profile-frame">
-
-                    <img src="uzma.jpeg" alt="Uzma Mulla Professional Profile">
-
+                    <img src="uzma.jpg" alt="Uzma Mulla Professional Profile">
                 </div>
-
             </div>
-
         </div>
-
     </section>
-
-   
-
+    
 <section id="about" class="py-20 px-10 relative overflow-hidden">
-
     <div class="max-w-5xl mx-auto">
-
         <h2 class="mono text-[#ffb703] uppercase text-center">Identity_Protocol</h2>
-
-       
-
+        
         <div class="cyber-glass p-12 md:p-16 relative group">
-
             <div class="absolute top-0 left-0 w-2 h-2 bg-[#ffb703] m-4 rounded-full shadow-[0_0_10px_#ffb703]"></div>
-
-           
-
+            
             <div class="grid md:grid-cols-3 gap-12 items-center">
-
                 <div class="md:col-span-2 space-y-8">
-
                     <div>
-
                         <h3 class="text-3xl font-bold text-white italic mb-2">Hello Recruiter, I'm Uzma Mulla.</h3>
-
                         <p class="mono text-sm text-[#ffb703] uppercase tracking-widest">Track: Artificial Intelligence & Data Science </p>
-
                     </div>
-
-                   
-
+                    
                     <div class="space-y-6">
-
                         <p class="text-slate-400 leading-relaxed text-lg font-light">
-
                             I am a <span class="text-white font-medium">pre-final year Engineering student</span> aspiring to build a career as an <span class="text-white font-medium">AI Engineer</span>. My focus is on strengthening my understanding of machine learning, data processing, and intelligent system design.
-
                         </p>
-
-                       
-
+                        
                         <div class="py-6 border-y border-white/5">
-
                             <span class="mono text-[10px] uppercase tracking-[0.3em] text-slate-500 block mb-4">Project_Highlights</span>
-
                             <div class="grid sm:grid-cols-2 gap-8">
-
                                 <div class="space-y-2">
-
                                     <h4 class="text-white font-bold text-xs uppercase tracking-wider">Smart Data Upload (2024–2025) </h4>
-
                                     <p class="text-slate-400 text-xs leading-relaxed font-light">
-
                                         Automated Excel-to-JSON conversion using Spring Boot for structured institutional data handling.
-
                                     </p>
-
                                 </div>
-
                                 <div class="space-y-2 border-l border-white/5 pl-6">
-
                                     <h4 class="text-white font-bold text-xs uppercase tracking-wider">Heart Disease Detection</h4>
-
                                     <p class="text-slate-400 text-xs leading-relaxed font-light">
-
                                         Deep Learning model utilizing  CNN, VGG-16, and Unet for accurate risk identification.
-
                                     </p>
-
                                 </div>
-
                             </div>
-
                         </div>
 
-
-
                         <p class="text-slate-400 leading-relaxed text-lg font-light">
-
                             Currently learning, building, and seeking opportunities to grow within AI-focused environments.
-
                         </p>
-
-
 
                         <div class="flex flex-wrap gap-10 pt-6 border-t border-white/5">
-
                             <div>
-
                                 <span class="block text-3xl font-bold text-white">2+</span>
-
                                 <span class="mono text-[10px] uppercase tracking-widest text-slate-500">Industry Internships</span>
-
                             </div>
-
                             <div>
-
                                 <span class="block text-3xl font-bold text-white">5+</span>
-
                                 <span class="mono text-[10px] uppercase tracking-widest text-slate-500">Tech Certifications</span>
-
                             </div>
-
                             <div>
-
                                 <span class="block text-3xl font-bold text-white">AI/DS</span>
-
                                <span class="mono text-[10px] uppercase tracking-widest text-slate-500">Specialization </span>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
 
                 <div class="hidden md:block">
-
                     <div class="relative">
-
                         <div class="absolute -top-16 -left-12 opacity-10 select-none pointer-events-none text-white">
-
                              <i data-lucide="brain-circuit" class="w-48 h-48"></i>
-
                         </div>
-
-
 
                         <div class="primary-focus-box p-8 rounded-3xl backdrop-blur-sm border border-white/5 bg-white/[0.02] relative z-10">
-
     <span class="mono text-[10px] text-yellow-500 block mb-6 uppercase tracking-[0.2em]">Technical_Foundation</span>
-
     <ul class="space-y-4 text-xs text-slate-300 mono uppercase tracking-wider">
-
         <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> Python</li>
-
         <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> Java (Basics)</li>
-
         <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> C (Basics)</li>
-
         <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> SQL</li>
-
         <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> HTML, CSS, JS</li>
-
     </ul>
-
 </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
-
     <section id="experience" class="py-20 px-6">
-
         <div class="container mx-auto max-w-5xl">
-
             <h2 class="mono text-xs text-yellow-500 uppercase tracking-[0.6em] mb-20 text-center">PROFESSIONAL_HISTORY</h2>
-
             <div class="grid gap-8">
-
-               
-
+                
                 <div class="cyber-glass p-10 flex flex-col md:flex-row justify-between items-start md:items-center" data-aos="fade-up">
-
                     <div class="max-w-xl">
-
                         <h3 class="text-3xl font-bold mb-2">AI Engineering Intern</h3>
-
                         <p class="text-yellow-500 font-bold uppercase tracking-widest text-xs mb-4">Wizzybox Private Limited</p>
-
                         <p class="text-slate-400 text-sm font-light leading-relaxed mb-4">
-
                             Currently contributing in an environment focused on AI solution development while gaining exposure to practical implementation workflows.
-
                         </p>
-
                         <div class="flex items-center gap-2">
-
                             <span class="text-[10px] mono text-slate-500">Technologies:</span>
-
                             <span class="text-[10px] mono text-yellow-500/80">Python • Data Handling</span>
-
                         </div>
-
                     </div>
-
                     <div class="text-left md:text-right mt-6 md:mt-0">
-
                         <span class="tag-badge">Jan 2026 — Present</span>
-
                         <p class="text-[10px] text-slate-500 mt-2 mono">Naagarabhaavi, Bengaluru</p>
-
                     </div>
-
                 </div>
-
-
 
                 <div class="cyber-glass p-10 flex flex-col md:flex-row justify-between items-start md:items-center" data-aos="fade-up" data-aos-delay="100">
-
                     <div class="max-w-xl">
-
                         <h3 class="text-3xl font-bold mb-2">Data Science Intern</h3>
-
                         <p class="text-yellow-500 font-bold uppercase tracking-widest text-xs mb-4">AENEXZ</p>
-
                         <p class="text-slate-400 text-sm font-light leading-relaxed mb-4">
-
                             Gained foundational exposure to how data-driven systems are structured and used for analysis and prediction.
-
                         </p>
-
                         <div class="flex items-center gap-2">
-
                             <span class="text-[10px] mono text-slate-500">Technologies:</span>
-
                             <span class="text-[10px] mono text-yellow-500/80">Python • Machine learning • SQL</span>
-
                         </div>
-
                     </div>
-
                     <div class="text-left md:text-right mt-6 md:mt-0">
-
                         <span class="tag-badge">Nov 2025 — Jan 2026</span>
-
                         <p class="text-[10px] text-slate-500 mt-2 mono">ID: AEN-INT-25D382</p>
-
                     </div>
-
                 </div>
 
-
-
             </div>
-
         </div>
-
     </section>
-
 <section id="skills" class="py-20 px-10">
-
     <div class="max-w-5xl mx-auto">
-
         <h2 class="mono text-xs text-[#ffb703] uppercase tracking-[0.6em] mb-20 text-center">Technical_Expertise</h2>
-
-       
-
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
             <div class="cyber-glass p-12 text-center" data-aos="fade-up">
-
                 <div class="flex flex-col items-center">
-
                     <i data-lucide="code-2" class="mb-8 w-8 h-8 text-[#ffb703]"></i>
-
                     <h4 class="font-bold text-sm text-[#ffb703] uppercase tracking-widest mb-4">Programming</h4>
-
                     <p class="mono text-xs text-slate-400 uppercase leading-loose">
-
-                        Python <br>
-
-                        Java (Basics) <br>
-
+                        Python <br> 
+                        Java (Basics) <br> 
                         C (Basics)
-
                     </p>
-
                 </div>
-
             </div>
-
-
 
             <div class="cyber-glass p-12 text-center" data-aos="fade-up" data-aos-delay="100">
-
                 <div class="flex flex-col items-center">
-
                     <i data-lucide="bar-chart-big" class="mb-8 w-8 h-8 text-[#ffb703]"></i>
-
                     <h4 class="font-bold text-sm text-[#ffb703] uppercase tracking-widest mb-4">Analytics</h4>
-
                     <p class="mono text-xs text-slate-400 uppercase leading-loose">
-
-                        Pandas • Numpy <br>
-
-                        Power BI • Tableau <br>
-
+                        Pandas • Numpy <br> 
+                        Power BI • Tableau <br> 
                         Advanced Excel
-
                     </p>
-
                 </div>
-
             </div>
-
-
 
             <div class="cyber-glass p-12 text-center" data-aos="fade-up" data-aos-delay="200">
-
                 <div class="flex flex-col items-center">
-
                     <i data-lucide="database" class="mb-8 w-8 h-8 text-[#ffb703]"></i>
-
                     <h4 class="font-bold text-sm text-[#ffb703] uppercase tracking-widest mb-4">Infrastructure</h4>
-
                     <p class="mono text-xs text-slate-400 uppercase leading-loose">
-
-                        MySQL <br>
-
-                        SQL <br>
-
+                        MySQL <br> 
+                        SQL <br> 
                         JSON
-
                     </p>
-
                 </div>
-
             </div>
-
-
 
             <div class="cyber-glass p-12 text-center" data-aos="fade-up" data-aos-delay="300">
-
                 <div class="flex flex-col items-center">
-
                     <i data-lucide="layout" class="mb-8 w-8 h-8 text-[#ffb703]"></i>
-
                     <h4 class="font-bold text-sm text-[#ffb703] uppercase tracking-widest mb-4">Web Development</h4>
-
                     <p class="mono text-xs text-slate-400 uppercase leading-loose">
-
-                        HTML5 <br>
-
-                        CSS3 <br>
-
+                        HTML5 <br> 
+                        CSS3 <br> 
                         JavaScript (Basics)
-
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
-
     <section id="projects" class="py-20 px-6">
-
     <div class="container mx-auto">
-
         <h2 class="mono text-xs text-yellow-500 uppercase tracking-[0.6em] mb-20 text-center">PROJECTS</h2>
-
         <div class="grid lg:grid-cols-2 gap-12">
-
-           
-
+            
             <div class="cyber-glass overflow-hidden group" data-aos="fade-up">
-
                 <div class="h-80 overflow-hidden relative">
-
                     <img src="h4.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="Heart AI">
-
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
-
                 </div>
-
                 <div class="p-12">
-
                     <h3 class="text-4xl font-black mb-6 uppercase">Heart Disease Detection <br> Using Deep Learning</h3>
-
                     <p class="text-slate-400 text-sm font-light leading-relaxed mb-8">
-
                         Developed an advanced predictive model for clinical heart disease assessment. Implemented using <strong>CNN,VGG-16</strong> and <strong>Unet</strong> architectures to improve diagnostic accuracy through optimized feature preparation.
-
                     </p>
-
                     <div class="flex gap-4 flex-wrap mt-6">
-
                         <span class="tag-badge">Deep Learning</span>
-
                         <span class="tag-badge">CNN</span>
-
                         <span class="tag-badge">VGG-16</span>
-
                         <span class="tag-badge">Unet</span>
-
                     </div>
-
                 </div>
-
             </div>
-
-
 
             <div class="cyber-glass overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
-
                 <div class="h-80 overflow-hidden relative">
-
                     <img src="j.png" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="GECN Data Flow">
-
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
-
                 </div>
-
                 <div class="p-12">
-
                     <h3 class="text-4xl font-black mb-6 uppercase">Institutional Data Flow</h3>
-
                     <p class="text-slate-400 text-sm font-light leading-relaxed mb-8">
-
     Developed an automated <strong>"Smart Data Upload"</strong> solution  to bridge tabular data management with modern requirements by converting Excel datasets into structured <strong>JSON</strong> format. This system ensures seamless interoperability for institutional student databases.
-
 </p>
-
                     <div class="flex flex-wrap gap-4 mt-6">
-
                         <span class="tag-badge">Spring Boot</span>
-
                         <span class="tag-badge">Java</span>
-
                         <span class="tag-badge">Apache POI</span>
-
                         <span class="tag-badge">JSON</span>
-
                     </div>
-
                 </div>
-
             </div>
-
-
 
         </div>
-
     </div>
-
 </section>
-
     <section id="credentials" class="py-20 px-6 border-y border-white/5">
-
     <div class="container mx-auto max-w-6xl">
-
         <h2 class="mono text-xs text-[#ffb703] uppercase tracking-[0.6em] mb-20 text-center">Credentials_Archive</h2>
-
-       
-
+        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-           
-
+            
             <div class="cyber-glass p-8 flex flex-col" data-aos="fade-up">
-
                 <div class="flex justify-between items-start mb-4">
-
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider">Data Science Internship</h3>
-
                     <span class="text-[9px] text-yellow-500 mono">AENEXZ</span>
-
                 </div>
-
                 <ul class="text-[11px] text-slate-400 space-y-2 font-light list-disc pl-4">
-
                     <li>Practical exposure to data-driven workflows</li>
-
                     <li>ID: Aen-INT-25D382 | Feb 2026</li>
-
                 </ul>
-
             </div>
-
-
 
             <div class="cyber-glass p-8 flex flex-col" data-aos="fade-up" data-aos-delay="50">
-
                 <div class="flex justify-between items-start mb-4">
-
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider">Image Essentials (OpenCV)</h3>
-
                     <span class="text-[9px] text-yellow-500 mono">Innomatics</span>
-
                 </div>
-
                 <ul class="text-[11px] text-slate-400 space-y-2 font-light list-disc pl-4">
-
                     <li>Computer Vision & ML model integration</li>
-
                     <li>Hands-on OpenCV implementations</li>
-
                 </ul>
-
             </div>
-
-
 
             <div class="cyber-glass p-8 flex flex-col" data-aos="fade-up" data-aos-delay="100">
-
                 <div class="flex justify-between items-start mb-4">
-
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider">TCS TechBytes 2025</h3>
-
                     <span class="text-[9px] text-yellow-500 mono">BITES</span>
-
                 </div>
-
                 <ul class="text-[11px] text-slate-400 space-y-2 font-light list-disc pl-4">
-
                     <li>Statewide IT Quiz participation</li>
-
                     <li>Evaluated emerging tech & software concepts</li>
-
                 </ul>
-
             </div>
-
-
 
             <div class="cyber-glass p-8 flex flex-col" data-aos="fade-up" data-aos-delay="150">
-
                 <div class="flex justify-between items-start mb-4">
-
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider">Python for Data Science</h3>
-
                     <span class="text-[9px] text-yellow-500 mono">IBM</span>
-
                 </div>
-
                 <ul class="text-[11px] text-slate-400 space-y-2 font-light list-disc pl-4">
-
                     <li>Data structures & functional programming</li>
-
                     <li>Hands-on real-world data science tasks</li>
-
                 </ul>
-
             </div>
-
-
-git pull origin main --allow-unrelated-histories
-git pull origin main --allow-unrelated-histories
 
             <div class="cyber-glass p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
-
                 <div class="flex justify-between items-start mb-4">
-
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider">Data Analytics Simulation</h3>
-
                     <span class="text-[9px] text-yellow-500 mono">Deloitte</span>
-
                 </div>
-
                 <ul class="text-[11px] text-slate-400 space-y-2 font-light list-disc pl-4">
-
                     <li>Data transformation & reporting in Excel</li>
-
                     <li>Completed Aug 2025</li>
-
                 </ul>
-
             </div>
-
-
 
             <div class="cyber-glass p-8 flex flex-col" data-aos="fade-up" data-aos-delay="250">
-
                 <div class="flex justify-between items-start mb-4">
-
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider">Soft Skills & Communication</h3>
-
                     <span class="text-[9px] text-yellow-500 mono">Adobe/British Council</span>
-
                 </div>
-
                 <ul class="text-[11px] text-slate-400 space-y-2 font-light list-disc pl-4">
-
                     <li>40hr Workplace communication training</li>
-
                     <li>Creative thinking & innovation workshop</li>
-
                 </ul>
-
             </div>
 
-
-
         </div>
-
     </div>
-
 </section>
-
 <footer id="contact" class="py-20 px-6 text-center">
-
         <h2 class="text-6xl md:text-9xl font-extrabold tracking-tighter mb-16 hero-title">Let's Talk.</h2>
-
         <div class="mb-20">
-
             <a href="mailto:uzmamulla27082004@gmail.com" class="text-2xl md:text-4xl font-bold border-b-4 border-yellow-500 pb-2 hover:text-yellow-500 transition">uzmamulla27082004@gmail.com</a>
-
         </div>
-
         <div class="flex justify-center gap-12 mb-20 font-black uppercase tracking-widest text-xs">
-
             <a href="http://linkedin.com/in/uzma-mulla-1b6127290" target="_blank" class="hover:text-yellow-400">LinkedIn</a>
-
             <a href="https://github.com/Uzma272004" target="_blank" class="hover:text-yellow-400">GitHub</a>
-
         </div>
-
         <p class="mono text-[10px] text-slate-700 tracking-[0.6em] uppercase">#587 ANGOL, BELAGAVI | +91 7022226591</p>
-
     </footer>
-
-   
-
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
     <script>
-
         AOS.init({ duration: 1000, once: true });
-
         lucide.createIcons();
 
-
-
         // --- ENHANCED 3D NEURAL NETWORK ---
-
         const container = document.getElementById('neural-bg');
-
         const scene = new THREE.Scene();
-
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-       
-
+        
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
         container.appendChild(renderer.domElement);
 
-
-
         const particlesCount = 350;
-
         const posArray = new Float32Array(particlesCount * 3);
-
         for(let i=0; i < particlesCount * 3; i++) {
-
             posArray[i] = (Math.random() - 0.5) * 12;
-
         }
 
-
-
         const particlesGeometry = new THREE.BufferGeometry();
-
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
         const particlesMaterial = new THREE.PointsMaterial({
-
             size: 0.04, color: '#ffb703', transparent: true, opacity: 0.7
-
         });
-
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-
         scene.add(particlesMesh);
 
-
-
         // --- UPDATED DARKER NEURAL LINES ---
-
-const linesMaterial = new THREE.LineBasicMaterial({
-
+const linesMaterial = new THREE.LineBasicMaterial({ 
     color: '#312e81', // Deeper Indigo for a high-tech, professional look
-
-    transparent: true,
-
+    transparent: true, 
     opacity: 0.4      // Increased from 0.12 for better visibility
-
 });
-
 const lineMesh = new THREE.LineSegments(new THREE.BufferGeometry(), linesMaterial);
-
 scene.add(lineMesh);
-
-
 
         camera.position.z = 5;
 
-
-
         let scrollY = 0;
-
         window.addEventListener('scroll', () => { scrollY = window.scrollY; });
 
-
-
         function animate() {
-
             requestAnimationFrame(animate);
-
             particlesMesh.rotation.y += 0.0008;
-
             particlesMesh.rotation.x = scrollY * 0.0005;
-
             lineMesh.rotation.y += 0.0008;
-
             lineMesh.rotation.x = scrollY * 0.0005;
 
-
-
             const positions = particlesGeometry.attributes.position.array;
-
             const linePositions = [];
-
             for (let i = 0; i < particlesCount; i++) {
-
                 for (let j = i + 1; j < particlesCount; j++) {
-
                     const x1 = positions[i*3], y1 = positions[i*3+1], z1 = positions[i*3+2];
-
                     const x2 = positions[j*3], y2 = positions[j*3+1], z2 = positions[j*3+2];
-
                     const dist = Math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2);
-
                     if (dist < 1.7) linePositions.push(x1, y1, z1, x2, y2, z2);
-
                 }
-
             }
-
             lineMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-
             renderer.render(scene, camera);
-
         }
 
-
-
         window.addEventListener('resize', () => {
-
             camera.aspect = window.innerWidth / window.innerHeight;
-
             camera.updateProjectionMatrix();
-
             renderer.setSize(window.innerWidth, window.innerHeight);
-
         });
-
         animate();
-
     </script>
-
 </body>
-
 </html>
