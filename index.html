@@ -101,18 +101,30 @@
     .animate-pulse { animation: soft-pulse 2s infinite; }
     [data-lucide] { stroke-width: 2.5px; }
 
-    @media (max-width: 768px) {
-        .hero-title { font-size: 3.5rem; }
-        #hero { padding-top: 120px; }
+   @media (max-width: 768px) {
+        .hero-title { 
+            font-size: 2.8rem !important; 
+            line-height: 1.1; 
+        }
+        
+        #hero { padding-top: 100px; min-height: auto; }
         .cyber-glass { padding: 1.5rem !important; }
+        
+       
         h2.mono {
             font-size: 0.875rem;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.4em;
             margin-bottom: 3rem;
         }
-    }
 
-   /* Find this in your <style> tag and update it */
+        
+        .profile-frame img { max-width: 260px; }
+
+        
+        #contact a { font-size: 1.1rem; word-break: break-all; }
+    }
+        
+  
 [data-lucide="brain-circuit"] {
     opacity: 0.2 !important; /* Increased from 0.05 to make it visible */
     pointer-events: none;
@@ -132,19 +144,20 @@
     <div id="neural-bg"></div>
 
     <nav class="fixed top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50">
-        <div class="cyber-glass px-8 py-5 flex justify-between items-center bg-slate-950/50">
-           <span class="text-2xl font-black italic tracking-tighter">
-    <span class="text-white">UZMA</span><span class="text-[#ffb703]">.</span><span class="text-slate-500 font-light">MULLA</span>
-</span>
-           <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.3em]">
-    <a href="#about" class="nav-link hover:text-yellow-400">Identity</a> 
-    <a href="#experience" class="nav-link hover:text-yellow-400">Experience</a>
-    <a href="#skills" class="nav-link hover:text-yellow-400">Matrix</a>
-    <a href="#projects" class="nav-link hover:text-yellow-400">Works</a>
-    <a href="#contact" class="text-yellow-400 font-black">Connect</a>
-</div>
+    <div class="cyber-glass px-4 md:px-8 py-4 md:py-5 flex justify-between items-center bg-slate-950/50">
+        <span class="text-xl md:text-2xl font-black italic tracking-tighter">
+            <span class="text-white">UZMA</span><span class="text-[#ffb703]">.</span><span class="text-slate-500 font-light text-sm md:text-base">MULLA</span>
+        </span>
+
+        <div class="flex space-x-3 md:space-x-10 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.3em]">
+            <a href="#about" class="nav-link hover:text-yellow-400">Identity</a> 
+            <a href="#experience" class="nav-link hover:text-yellow-400 hidden sm:block">Experience</a>
+            <a href="#skills" class="nav-link hover:text-yellow-400 hidden sm:block">Matrix</a>
+            <a href="#projects" class="nav-link hover:text-yellow-400 hidden md:block">Works</a>
+            <a href="#contact" class="text-yellow-400 font-black">Connect</a>
         </div>
-    </nav>
+    </div>
+</nav>
 
 <section id="hero" class="min-h-screen flex items-center">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center px-10">
@@ -191,7 +204,7 @@
 
         <div class="flex justify-center lg:justify-end" data-aos="zoom-out">
             <div class="profile-frame">
-                <img src="uzma.jpg" alt="Uzma Mulla Professional Profile">
+                <img src="uzma-mulla-profile.jpg" alt="Uzma Mulla Professional Profile">
             </div>
         </div>
 
@@ -380,7 +393,7 @@
             
             <div class="cyber-glass overflow-hidden group" data-aos="fade-up">
                 <div class="h-80 overflow-hidden relative">
-                    <img src="h4.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="Heart AI">
+                    <img src="heart-project.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="Heart AI">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
                 </div>
                 <div class="p-12">
@@ -399,7 +412,7 @@
 
             <div class="cyber-glass overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
                 <div class="h-80 overflow-hidden relative">
-                    <img src="j.png" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="GECN Data Flow">
+                    <img src="institutional-data.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="GECN Data Flow">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
                 </div>
                 <div class="p-12">
@@ -521,7 +534,7 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        const particlesCount = 350;
+        const particlesCount = window.innerWidth < 768 ? 120 : 350;
         const posArray = new Float32Array(particlesCount * 3);
         for(let i=0; i < particlesCount * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 12;
@@ -558,8 +571,10 @@ scene.add(lineMesh);
 
             const positions = particlesGeometry.attributes.position.array;
             const linePositions = [];
-            for (let i = 0; i < particlesCount; i++) {
-                for (let j = i + 1; j < particlesCount; j++) {
+           for (let i = 0; i < particlesCount; i++) {
+                // Mobile optimization: only check immediate nearby particles to save CPU
+                let limit = window.innerWidth < 768 ? i + 15 : particlesCount;
+                for (let j = i + 1; j < limit; j++) {
                     const x1 = positions[i*3], y1 = positions[i*3+1], z1 = positions[i*3+2];
                     const x2 = positions[j*3], y2 = positions[j*3+1], z2 = positions[j*3+2];
                     const dist = Math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2);
