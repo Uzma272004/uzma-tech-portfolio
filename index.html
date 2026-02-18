@@ -100,55 +100,60 @@
     @keyframes soft-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     .animate-pulse { animation: soft-pulse 2s infinite; }
     [data-lucide] { stroke-width: 2.5px; }
-/* --- MOBILE SPECIFIC FIX (Regular Mobile View) --- */
 @media (max-width: 768px) {
-    /* 1. Force the grid to stack and center */
+    /* 1. Pull the entire section up closer to the top */
+    #hero { 
+        padding-top: 50px !important; 
+        min-height: auto !important; 
+    }
+
     #hero .max-w-6xl {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
-        padding-top: 20px !important;
-        gap: 1.5rem !important;
+        gap: 0.5rem !important; /* Extremely tight gap to save space */
     }
 
-    /* 2. Shrink Title so it doesn't take up half the screen */
+    /* 2. Shrink the huge title */
     .hero-title { 
-        font-size: 2.8rem !important; 
-        line-height: 1.1;
-        margin-bottom: 1rem !important;
-        margin-top: 0 !important;
+        font-size: 2.2rem !important; 
+        margin-bottom: 0.5rem !important;
     }
     
-    /* 3. Make description and spacing tighter */
+    /* 3. Tighten the description text */
     .hero-description {
-        font-size: 0.95rem !important;
-        max-width: 100% !important;
-        margin-bottom: 1.5rem !important;
-        border-left: none !important; /* Removes side line to save space */
+        font-size: 0.9rem !important;
         padding-left: 0 !important;
+        border-left: none !important;
+        margin-bottom: 1rem !important;
+        max-width: 90% !important;
     }
 
-    /* 4. Shrink the image so it fits "above the fold" */
+    /* 4. Reduce spacing in the list of internship/projects */
+    .space-y-4 {
+        margin-bottom: 1.5rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    /* 5. Shrink the Profile Frame significantly so it fits on one screen */
     .profile-frame { 
-        max-width: 220px !important; 
+        max-width: 160px !important; /* Smaller size forces it onto the screen */
         margin: 0 auto !important;
-        padding: 6px !important; /* Thinner border */
     }
 
     .profile-frame img { 
-        width: 100% !important;
-        height: auto !important;
+        border-radius: 20px !important; 
     }
 
-    /* 5. Center the buttons */
+    /* 6. Center the Buttons and remove big gaps */
     .flex.flex-wrap {
         justify-content: center !important;
-        gap: 1rem !important;
+        gap: 0.75rem !important;
+        margin-bottom: 1.5rem !important;
     }
-
-    /* 6. Clean up navigation for small screens */
-    #hero { padding-top: 80px !important; }
 }
 [data-lucide="brain-circuit"] {
     opacity: 0.2 !important; /* Increased from 0.05 to make it visible */
@@ -184,7 +189,7 @@
     </div>
 </nav>
 
-<section id="hero" class="min-h-screen flex items-center">
+<section id="hero" class="flex items-center">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center px-10">
         
         <div data-aos="fade-right">
