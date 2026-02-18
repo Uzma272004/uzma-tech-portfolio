@@ -102,29 +102,53 @@
     [data-lucide] { stroke-width: 2.5px; }
 
    @media (max-width: 768px) {
-        .hero-title { 
-            font-size: 2.8rem !important; 
-            line-height: 1.1; 
-        }
-        
-        #hero { padding-top: 100px; min-height: auto; }
-        .cyber-glass { padding: 1.5rem !important; }
-        
-       
-        h2.mono {
-            font-size: 0.875rem;
-            letter-spacing: 0.4em;
-            margin-bottom: 3rem;
-        }
-
-        
-        .profile-frame img { max-width: 260px; }
-
-        
-        #contact a { font-size: 1.1rem; word-break: break-all; }
+    /* 1. Force everything to stack and center */
+    #hero .max-w-6xl {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding-top: 40px !important; /* Pulls content up higher */
+        gap: 1.5rem !important;
     }
-        
-  
+
+    /* 2. Resize Title and Text */
+    .hero-title { 
+        font-size: 2.5rem !important; /* Slightly smaller to save space */
+        line-height: 1.1;
+        margin-bottom: 1rem !important;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* 3. Pull the Image Up and Resize */
+    .profile-frame, .profile-frame img { 
+        max-width: 240px !important; /* Smaller image so it fits on screen */
+        margin: 0 auto !important;
+        height: auto !important;
+    }
+
+    /* 4. Fix other mobile spacing */
+    #hero { padding-top: 80px; min-height: auto; }
+    .cyber-glass { padding: 1.25rem !important; }
+    
+    h2.mono {
+        font-size: 0.8rem;
+        letter-spacing: 0.3em;
+        margin-bottom: 2rem;
+    }
+
+    #contact a { font-size: 1.1rem; word-break: break-all; }
+
+    /* Center the buttons below the text */
+    .flex.flex-wrap {
+        justify-content: center !important;
+    }
+}
 [data-lucide="brain-circuit"] {
     opacity: 0.2 !important; /* Increased from 0.05 to make it visible */
     pointer-events: none;
