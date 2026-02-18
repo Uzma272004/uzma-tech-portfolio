@@ -31,14 +31,14 @@
     .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: 0.3s; }
     .nav-link:hover::after { width: 100%; }
 
-    #hero {
-    padding-top: 140px; 
-    padding-bottom: 20px; /* Reduced from 60px */
-    min-height: 80vh;      /* Reduced from 100vh to bring content up */
+    /* --- GLOBAL HERO SETTINGS --- */
+#hero {
+    padding-top: 100px; /* Reduced from 140px to pull content up */
+    padding-bottom: 20px;
+    min-height: 85vh; 
     display: flex;
     align-items: center;
 }
-
     .hero-title {
         font-weight: 800;
         background: linear-gradient(to right, #ffffff, var(--accent), #818cf8);
@@ -100,40 +100,40 @@
     @keyframes soft-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     .animate-pulse { animation: soft-pulse 2s infinite; }
     [data-lucide] { stroke-width: 2.5px; }
+/* --- MOBILE SPECIFIC FIX (Regular Mobile View) --- */
 @media (max-width: 768px) {
-    /* 1. Force the Hero container to stack vertically instead of a grid */
+    /* 1. Force the grid to stack and center */
     #hero .max-w-6xl {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
-        padding-top: 20px !important; /* Pulls content up higher */
-        gap: 1rem !important;
-        grid-template-columns: 1fr !important; /* Disables the 2-column grid */
+        padding-top: 20px !important;
+        gap: 1.5rem !important;
     }
 
-    /* 2. Shrink the massive title to save screen space */
+    /* 2. Shrink Title so it doesn't take up half the screen */
     .hero-title { 
-        font-size: 2.5rem !important; 
+        font-size: 2.8rem !important; 
         line-height: 1.1;
         margin-bottom: 1rem !important;
-        margin-top: 10px !important;
+        margin-top: 0 !important;
     }
     
-    /* 3. Adjust the description to be more compact */
+    /* 3. Make description and spacing tighter */
     .hero-description {
         font-size: 0.95rem !important;
         max-width: 100% !important;
         margin-bottom: 1.5rem !important;
-        padding-left: 1rem !important;
-        text-align: left; /* Keeps the professional left-border look */
+        border-left: none !important; /* Removes side line to save space */
+        padding-left: 0 !important;
     }
 
-    /* 4. RE-SIZE AND PULL THE IMAGE UP */
+    /* 4. Shrink the image so it fits "above the fold" */
     .profile-frame { 
-        max-width: 220px !important; /* Smaller image so it stays visible */
+        max-width: 220px !important; 
         margin: 0 auto !important;
-        margin-top: -10px !important; /* Pulls it closer to the buttons */
+        padding: 6px !important; /* Thinner border */
     }
 
     .profile-frame img { 
@@ -141,21 +141,14 @@
         height: auto !important;
     }
 
-    /* 5. Center all elements that were left-aligned */
-    .space-y-4, .flex.flex-wrap {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100%;
-    }
-    
+    /* 5. Center the buttons */
     .flex.flex-wrap {
-        flex-direction: row !important; /* Keeps buttons side-by-side if they fit */
+        justify-content: center !important;
         gap: 1rem !important;
     }
 
-    #hero { padding-top: 100px; min-height: auto; }
+    /* 6. Clean up navigation for small screens */
+    #hero { padding-top: 80px !important; }
 }
 [data-lucide="brain-circuit"] {
     opacity: 0.2 !important; /* Increased from 0.05 to make it visible */
