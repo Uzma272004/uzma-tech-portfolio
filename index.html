@@ -31,14 +31,14 @@
     .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: 0.3s; }
     .nav-link:hover::after { width: 100%; }
 
-    /* --- GLOBAL HERO SETTINGS --- */
-#hero {
-    padding-top: 100px; /* Reduced from 140px to pull content up */
-    padding-bottom: 20px;
-    min-height: 85vh; 
+    #hero {
+    padding-top: 140px; 
+    padding-bottom: 20px; /* Reduced from 60px */
+    min-height: 80vh;      /* Reduced from 100vh to bring content up */
     display: flex;
     align-items: center;
 }
+
     .hero-title {
         font-weight: 800;
         background: linear-gradient(to right, #ffffff, var(--accent), #818cf8);
@@ -100,66 +100,19 @@
     @keyframes soft-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     .animate-pulse { animation: soft-pulse 2s infinite; }
     [data-lucide] { stroke-width: 2.5px; }
-@media (max-width: 768px) {
-    /* Pull everything up closer to the navigation */
-    #hero { 
-        padding-top: 50px !important; 
-        min-height: auto !important; 
+
+    @media (max-width: 768px) {
+        .hero-title { font-size: 3.5rem; }
+        #hero { padding-top: 120px; }
+        .cyber-glass { padding: 1.5rem !important; }
+        h2.mono {
+            font-size: 0.875rem;
+            letter-spacing: 0.5em;
+            margin-bottom: 3rem;
+        }
     }
 
-    #hero .max-w-6xl {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        gap: 0.5rem !important;
-    }
-
-    /* Shrink the large title and its bottom margin */
-    .hero-title { 
-        font-size: 2.2rem !important; 
-        margin-bottom: 0.5rem !important;
-        margin-top: 10px !important;
-    }
-    
-    /* Tighter description text */
-    .hero-description {
-        font-size: 0.85rem !important;
-        padding-left: 0 !important;
-        border-left: none !important;
-        margin-bottom: 0.75rem !important;
-        max-width: 95% !important;
-    }
-
-    /* Shrink the vertical list of internship/projects */
-    .space-y-4 {
-        margin-bottom: 1rem !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0.25rem !important;
-    }
-
-    /* Centered buttons with less bottom margin */
-    .flex.flex-wrap {
-        justify-content: center !important;
-        gap: 0.5rem !important;
-        margin-bottom: 1rem !important;
-    }
-
-    /* Shrink the Profile Frame so it climbs onto the screen */
-    .profile-frame { 
-        max-width: 150px !important; 
-        margin: 0 auto !important;
-        padding: 5px !important;
-    }
-
-    .profile-frame img { 
-        border-radius: 15px !important; 
-    }
-}
+   /* Find this in your <style> tag and update it */
 [data-lucide="brain-circuit"] {
     opacity: 0.2 !important; /* Increased from 0.05 to make it visible */
     pointer-events: none;
@@ -179,22 +132,21 @@
     <div id="neural-bg"></div>
 
     <nav class="fixed top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50">
-    <div class="cyber-glass px-4 md:px-8 py-4 md:py-5 flex justify-between items-center bg-slate-950/50">
-        <span class="text-xl md:text-2xl font-black italic tracking-tighter">
-            <span class="text-white">UZMA</span><span class="text-[#ffb703]">.</span><span class="text-slate-500 font-light text-sm md:text-base">MULLA</span>
-        </span>
-
-        <div class="flex space-x-3 md:space-x-10 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.3em]">
-            <a href="#about" class="nav-link hover:text-yellow-400">Identity</a> 
-            <a href="#experience" class="nav-link hover:text-yellow-400 hidden sm:block">Experience</a>
-            <a href="#skills" class="nav-link hover:text-yellow-400 hidden sm:block">Matrix</a>
-            <a href="#projects" class="nav-link hover:text-yellow-400 hidden md:block">Works</a>
-            <a href="#contact" class="text-yellow-400 font-black">Connect</a>
+        <div class="cyber-glass px-8 py-5 flex justify-between items-center bg-slate-950/50">
+           <span class="text-2xl font-black italic tracking-tighter">
+    <span class="text-white">UZMA</span><span class="text-[#ffb703]">.</span><span class="text-slate-500 font-light">MULLA</span>
+</span>
+           <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.3em]">
+    <a href="#about" class="nav-link hover:text-yellow-400">Identity</a> 
+    <a href="#experience" class="nav-link hover:text-yellow-400">Experience</a>
+    <a href="#skills" class="nav-link hover:text-yellow-400">Matrix</a>
+    <a href="#projects" class="nav-link hover:text-yellow-400">Works</a>
+    <a href="#contact" class="text-yellow-400 font-black">Connect</a>
+</div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<section id="hero" class="flex items-center">
+<section id="hero" class="min-h-screen flex items-center">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center px-10">
         
         <div data-aos="fade-right">
@@ -270,13 +222,13 @@
                                 <span class="mono text-[10px] uppercase tracking-[0.3em] text-slate-500 block mb-4">Project_Highlights</span>
                                 <div class="grid sm:grid-cols-2 gap-8">
                                     <div class="space-y-2">
-                                        <h4 class="text-white font-bold text-xs uppercase tracking-wider">SMART DATA UPLOAD (2024–2025)</h4>
+                                        <h4 class="text-white font-bold text-xs uppercase tracking-wider">SMART DATA UPLOAD FOR GECN WEB APP(2024–2025)</h4>
                                         <p class="text-slate-400 text-xs leading-relaxed font-light">
                                             Automated Excel-to-JSON conversion using Spring Boot for structured institutional data handling.
                                         </p>
                                     </div>
                                     <div class="space-y-2 border-l border-white/5 pl-6">
-                                        <h4 class="text-white font-bold text-xs uppercase tracking-wider">HEART DISEASE DETECTION</h4>
+                                        <h4 class="text-white font-bold text-xs uppercase tracking-wider">HEART DISEASE DETECTION USING DEEP LEARNING</h4>
                                         <p class="text-slate-400 text-xs leading-relaxed font-light">
                                             Deep Learning model utilizing CNN, VGG-16, and Unet for accurate risk identification.
                                         </p>
@@ -290,7 +242,7 @@
 
                             <div class="flex flex-wrap gap-10 pt-6 border-t border-white/5">
                                 <div>
-                                    <span class="block text-3xl font-bold text-white">2+</span>
+                                    <span class="block text-3xl font-bold text-white">3+</span>
                                     <span class="mono text-[10px] uppercase tracking-widest text-slate-500">Industry Internships</span>
                                 </div>
                                 <div>
@@ -316,8 +268,8 @@
                                 <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> Python</li>
                                 <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> Java (Basics)</li>
                                 <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> C (Basics)</li>
-                                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> SQL</li>
-                                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> HTML, CSS, JS</li>
+                                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> SQL,Excel,Power BI</li>
+                                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#ffb703] rounded-full"></span> HTML5, CSS3, JS</li>
                            </ul>
                     </div> </div> </div> </div> </div> </section>
 
@@ -336,7 +288,7 @@
                         </p>
                         <div class="flex items-center gap-2">
                             <span class="text-[10px] mono text-slate-500">Technologies:</span>
-                            <span class="text-[10px] mono text-yellow-500/80">Python • Data Handling</span>
+                            <span class="text-[10px] mono text-yellow-500/80">Python • MySql</span>
                         </div>
                     </div>
                     <div class="text-left md:text-right mt-6 md:mt-0">
@@ -344,6 +296,24 @@
                         <p class="text-[10px] text-slate-500 mt-2 mono">Naagarabhaavi, Bengaluru</p>
                     </div>
                 </div>
+
+                <div class="cyber-glass p-10 flex flex-col md:flex-row justify-between items-start md:items-center" data-aos="fade-up">
+                <div class="max-w-xl">
+                    <h3 class="text-3xl font-bold mb-2">Data Science Intern</h3>
+                    <p class="text-yellow-500 font-bold uppercase tracking-widest text-xs mb-4">Swizosoft (OPC) Private Limited</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed mb-4">
+                        Engaging in a learning-oriented environment to enhance technical and analytical skills through practical exposure and real-time project involvement.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] mono text-slate-500">Focus:</span>
+                        <span class="text-[10px] mono text-yellow-500/80">Data Analysis • Predictive Modeling • Technical Research</span>
+                    </div>
+                </div>
+                <div class="text-left md:text-right mt-6 md:mt-0">
+                    <span class="tag-badge">Jan 2026 — Present</span>
+                    <p class="text-[10px] text-slate-500 mt-2 mono">Ankola, Karnataka</p>
+                </div>
+            </div>
 
                 <div class="cyber-glass p-10 flex flex-col md:flex-row justify-between items-start md:items-center" data-aos="fade-up" data-aos-delay="100">
                     <div class="max-w-xl">
@@ -401,7 +371,7 @@
                     <h4 class="font-bold text-sm text-[#ffb703] uppercase tracking-widest mb-4">Infrastructure</h4>
                     <p class="mono text-xs text-slate-400 uppercase leading-loose">
                         MySQL <br> 
-                      JSON
+                        JSON <br> 
                     </p>
                 </div>
             </div>
@@ -568,7 +538,7 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        const particlesCount = window.innerWidth < 768 ? 120 : 350;
+        const particlesCount = 350;
         const posArray = new Float32Array(particlesCount * 3);
         for(let i=0; i < particlesCount * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 12;
@@ -605,10 +575,8 @@ scene.add(lineMesh);
 
             const positions = particlesGeometry.attributes.position.array;
             const linePositions = [];
-           for (let i = 0; i < particlesCount; i++) {
-                // Mobile optimization: only check immediate nearby particles to save CPU
-                let limit = window.innerWidth < 768 ? i + 15 : particlesCount;
-                for (let j = i + 1; j < limit; j++) {
+            for (let i = 0; i < particlesCount; i++) {
+                for (let j = i + 1; j < particlesCount; j++) {
                     const x1 = positions[i*3], y1 = positions[i*3+1], z1 = positions[i*3+2];
                     const x2 = positions[j*3], y2 = positions[j*3+1], z2 = positions[j*3+2];
                     const dist = Math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2);
